@@ -1,0 +1,17 @@
+FROM arm64v8/python:3.7-slim-buster
+
+WORKDIR /app
+
+COPY requirements.txt ./
+
+
+RUN apt-get update -y && \
+    apt-get install -y python3-rpi.gpio && \
+    apt-get update && apt-get install -y gcc 
+
+RUN pip install -r requirements.txt
+
+COPY . .
+
+CMD [ "python3", "-u", "./main.py" ]
+# CMD ["/bin/bash"]

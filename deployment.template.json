@@ -1,0 +1,135 @@
+{
+  "$schema-template": "4.0.0",
+  "modulesContent": {
+    "$edgeAgent": {
+      "properties.desired": {
+        "schemaVersion": "1.0",
+        "runtime": {
+          "type": "docker",
+          "settings": {
+            "minDockerVersion": "v1.25",
+            "loggingOptions": "",
+            "registryCredentials": {
+              "plantedgereg": {
+                "username": "plantEdgeReg",
+                "password": "eO4dnFcMrJ1nR9c5LrPdi6hCJliFBlyoL3zDHy8PpJ+ACRCjhykD",
+                "address": "plantedgereg.azurecr.io"
+              }
+            }
+          }
+        },
+        "systemModules": {
+          "edgeAgent": {
+            "type": "docker",
+            "settings": {
+              "image": "mcr.microsoft.com/azureiotedge-agent:1.4",
+              "createOptions": {}
+            }
+          },
+          "edgeHub": {
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "mcr.microsoft.com/azureiotedge-hub:1.4",
+              "createOptions": {
+                "HostConfig": {
+                  "PortBindings": {
+                    "5671/tcp": [
+                      {
+                        "HostPort": "5671"
+                      }
+                    ],
+                    "8883/tcp": [
+                      {
+                        "HostPort": "8883"
+                      }
+                    ],
+                    "443/tcp": [
+                      {
+                        "HostPort": "443"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        },
+        "modules": {
+          "plantModule": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "${MODULES.plantModule}",
+              "createOptions": {
+                "HostConfig": {
+                  "Privileged": true,
+                  "Devices": []
+                }
+              }
+            }
+          },
+          "aiModule": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "${MODULES.aiModule}",
+              "createOptions": {}
+            }
+          },
+          "iotModule": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "${MODULES.iotModule}",
+              "createOptions": {}
+            }
+          },
+          "bleModule": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "${MODULES.bleModule}",
+              "createOptions": {}
+            }
+          },
+          "musicModule": {
+            "version": "1.0",
+            "type": "docker",
+            "status": "running",
+            "restartPolicy": "always",
+            "settings": {
+              "image": "${MODULES.musicModule}",
+              "createOptions": {}
+            }
+          }
+        }
+      }
+    },
+    "$edgeHub": {
+      "properties.desired": {
+        "schemaVersion": "1.0",
+        "routes": {
+          "plantModuleToIoTHub": "FROM /messages/modules/plantModule/outputs/* INTO BrokeredEndpoint(\"/modules/aiModule/inputs/input1\")",
+          "plantModuleTomusic": "FROM /messages/modules/plantModule/outputs/* INTO BrokeredEndpoint(\"/modules/musicModule/inputs/input4\")",
+          "aiModuleToIoTHub": "FROM /messages/modules/aiModule/outputs/* INTO BrokeredEndpoint(\"/modules/iotModule/inputs/input2\")",
+          "iotModuleToIoTHub": "FROM /messages/modules/iotModule/outputs/* INTO $upstream",
+          "bleModuleToIoTHub": "FROM /messages/modules/bleModule/outputs/* INTO BrokeredEndpoint(\"/modules/aiModule/inputs/input1\")"
+          
+        },
+        "storeAndForwardConfiguration": {
+          "timeToLiveSecs": 7200
+        }
+      }
+    }
+  }
+}
