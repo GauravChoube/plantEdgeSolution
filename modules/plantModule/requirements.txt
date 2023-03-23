@@ -1,8 +1,5 @@
 pip~=23.0.1
 azure-iot-device~=2.7.0
-# time~=0.3.0
-# board
-# busio
 Adafruit-Blinka~=8.16.1
 adafruit-circuitpython-dht~=3.7.8
 adafruit-circuitpython-ads1x15~=2.2.21
