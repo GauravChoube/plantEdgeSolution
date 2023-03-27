@@ -16,7 +16,7 @@ samplerate = 44100
 base_music = "twinkle-twinkle.wav"
 plantstr = ""
 plantdataDict = ""
-data = 0
+plantMusic = 0
 
  
 
@@ -92,8 +92,8 @@ def create_client():
             #convert byte array into string then convert json string into dictionary
             plantstr = message.data.decode('utf-8')
             plantdataDict = json.loads(plantstr)
-            data = int(plantdataDict["plantSignal"])
-            musicPlay(data)
+            plantMusic = int(plantdataDict["plantSignal"])
+            musicPlay(plantMusic)
 
 
             #TODO music code here
