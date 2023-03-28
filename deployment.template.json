@@ -79,7 +79,12 @@
             "restartPolicy": "always",
             "settings": {
               "image": "${MODULES.aiModule}",
-              "createOptions": {}
+              "createOptions": {
+                "HostConfig": {
+                  "Privileged": true,
+                  "Devices": []
+                }
+              }
             }
           },
           "iotModule": {
