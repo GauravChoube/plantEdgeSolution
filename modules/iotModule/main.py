@@ -49,7 +49,7 @@ def create_client():
             print(plantdataDict)
             #taking plantsignal value from this dictionary
             print(plantOld)
-            print("before if")
+            # print("before if")
             plantNew=plantdataDict["plantMood"]
             
             # if plantNew == plantOld:
@@ -60,7 +60,7 @@ def create_client():
             #     await client.send_message_to_output(message, "output3")
             #     print("msg sent")
             #     plantOld=plantNew
-            message["time"]=time.time()
+            # message["time"]=time.time()
             await client.send_message_to_output(message, "output3")
             
             print(plantOld)

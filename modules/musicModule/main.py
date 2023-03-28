@@ -7,6 +7,73 @@ import sys
 import signal
 import threading
 from azure.iot.device.aio import IoTHubModuleClient
+from scipy.io.wavfile import write
+import numpy as np
+import pygame
+import json
+
+plantSignal = 0
+samplerate = 44100 
+base_music = "twinkle-twinkle.wav"
+plantstr = ""
+plantdataDict = ""
+plantMusic = 0
+
+ 
+
+def get_piano_notes():
+    '''
+    Returns a dict object for all the piano 
+    note's frequencies
+    '''
+    # White keys are in Uppercase and black keys (sharps) are in lowercase
+    octave = ['C', 'c', 'D', 'd', 'E', 'F', 'f', 'G', 'g', 'A', 'a', 'B'] 
+    # base_freq = 261.63 #Frequency of Note C4
+     #Frequency of Note C4
+    global base_freq
+    note_freqs = {octave[i]: base_freq * pow(2,(i/12)) for i in range(len(octave))}       
+    note_freqs[''] = 0.0
+    return note_freqs
+    
+def get_wave(freq, duration=0.3):
+    music_amplitude = 4096
+    t = np.linspace(0, duration, int(samplerate * duration))
+    wave = music_amplitude * np.sin(2 * np.pi * freq * t)
+    
+    return wave
+        
+def get_song_data(music_notes):
+    note_freqs = get_piano_notes()
+    song = [get_wave(note_freqs[note]) for note in music_notes.split('-')]
+    song = np.concatenate(song)
+    return song.astype(np.int16)
+    
+
+def music():
+    #Notes of "twinkle twinkle little star"
+    music_notes = 'C-C-G-G-A-A-G--F-F-E-E-D-D-C'
+    
+    # next line create song object (Music file)
+    data = get_song_data(music_notes)
+    data = data * (16300/np.max(data))
+    write(base_music, samplerate, data.astype(np.int16))
+
+    pygame.init()
+    pygame.mixer.init()
+    pygame.mixer.music.load(base_music)
+    pygame.mixer.music.play()
+    while pygame.mixer.music.get_busy() == True:
+        continue
+    pygame.quit()
+
+def musicPlay(amplitude):    
+      print("Plant signal data: ", amplitude)
+      global base_freq
+      base_freq = amplitude /10  
+      # the above value we can vary after checking which amplitude needs which note and equate accordingly
+      
+      # print("Base freq: " ,base_freq)
+      music()
 
 
 # Event indicating client stop
@@ -23,6 +90,12 @@ def create_client():
         if message.input_name == "input4":
             print("the data in the message received on input1 was ")
             print(message.data)
+            #convert byte array into string then convert json string into dictionary
+            plantstr = message.data.decode('utf-8')
+            plantdataDict = json.loads(plantstr)
+            plantMusic = int(plantdataDict["plantSignal"])
+            musicPlay(plantMusic)
+
 
             #TODO music code here
 

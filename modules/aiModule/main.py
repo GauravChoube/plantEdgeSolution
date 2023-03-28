@@ -35,19 +35,23 @@ def aiInferencing(data):
 
     #TODO Add prediction code here
     
-    #print("cp2")
+    # print("cp2")
     raw_df = pd.DataFrame(plantDataList).T #convert the list to a DataFrame
-    #print("cp3")
+    # print("cp3")
     sc_1 = StandardScaler()
-    #print("cp4")
+    # print("cp4")
     scaled_test_data = sc_1.fit_transform(raw_df) # scale the test data before giving it as an input to the model
-    #print("cp5")
+    # print("cp5")
     scaled_test_df = pd.DataFrame(scaled_test_data)
-    #print("cp6")
+    # print("cp6")
     pred_outcome = pickled_model.predict(scaled_test_df)
-    #print("cp7")
+    # print("cp7")
 
     plantMessage["plantMood"] = pred_outcome[0]
+    # print("plantMood------- ", plantMessage["plantMood"])
+    plantMessage["time"] = time.time()
+    # print("Time ------", plantMessage["time"])
+
     t2=round(time.time()*1000)
 
     print("[{}]mood detected with inferencing time:{}ms".format(plantMessage["plantMood"],t2-t1))
