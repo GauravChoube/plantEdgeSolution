@@ -52,14 +52,16 @@ def create_client():
             print("before if")
             plantNew=plantdataDict["plantMood"]
             
-            if plantNew == plantOld:
-                #do my operaton sendig
-                print("if condn")
-                pass
-                message["time"] = time.time()
-                await client.send_message_to_output(message, "output3")
-                print("msg sent")
-                plantOld=plantNew
+            # if plantNew == plantOld:
+            #     #do my operaton sendig
+            #     print("if condn")
+            #     pass
+            #     message["time"] = time.time()
+            #     await client.send_message_to_output(message, "output3")
+            #     print("msg sent")
+            #     plantOld=plantNew
+            message["time"]=time.time()
+            await client.send_message_to_output(message, "output3")
             
             print(plantOld)
     try:
