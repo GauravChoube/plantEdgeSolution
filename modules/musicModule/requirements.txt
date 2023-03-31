@@ -1,10 +1,5 @@
-azure-iot-device ~= 2.7.0
-asyncio ~= 3.4.3
-signal ~= 3.9
-sys ~= 3.11
-threading ~= 3.11.2
-numpy ~= 1.24.2
+azure-iot-device~=2.7.0
+scipy ~= 1.7.3
+numpy ~= 1.21.6
 pygame ~= 2.3.0
-scipy ~= 1.10.1
 wavfile ~= 4.6.0
-json ~= 3.9
