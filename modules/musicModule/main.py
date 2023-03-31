@@ -10,6 +10,7 @@ from azure.iot.device.aio import IoTHubModuleClient
 from scipy.io.wavfile import write
 import numpy as np
 import pygame
+from pygame import mixer
 import json
 
 plantSignal = 0
@@ -18,8 +19,6 @@ base_music = "twinkle-twinkle.wav"
 plantstr = ""
 plantdataDict = ""
 plantMusic = 0
-
- 
 
 def get_piano_notes():
     '''
@@ -121,8 +120,8 @@ async def run_sample(client):
 
 
 def main():
-    if not sys.version >= "3.5.3":
-        raise Exception( "The sample requires python 3.5.3+. Current version of Python: %s" % sys.version )
+#    if not sys.version >= "3.5.3":
+#       raise Exception( "The sample requires python 3.5.3+. Current version of Python: %s" % sys.version )
     print ( "IoT Hub Client for Python" )
 
     # NOTE: Client is implicitly connected due to the handler being set on it

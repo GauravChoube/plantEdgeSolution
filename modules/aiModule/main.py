@@ -36,15 +36,15 @@ def aiInferencing(data):
     #TODO Add prediction code here
     
     # print("cp2")
-    raw_df = pd.DataFrame(plantDataList).T #convert the list to a DataFrame
+    pickled_model = pickle.load(open('mlp_temp_alpha.pkl', 'rb')) #convert the list to a DataFrame
     # print("cp3")
-    sc_1 = StandardScaler()
+    raw_df = pd.DataFrame(data = plantDataList).T
     # print("cp4")
-    scaled_test_data = sc_1.fit_transform(raw_df) # scale the test data before giving it as an input to the model
+    standard_pkl_fitter = pickle.load(open('scaled_X_train.pkl', 'rb')) # scale the test data before giving it as an input to the model
     # print("cp5")
-    scaled_test_df = pd.DataFrame(scaled_test_data)
+    scaled_test_new = pd.DataFrame(standard_pkl_fitter.transform(raw_df))
     # print("cp6")
-    pred_outcome = pickled_model.predict(scaled_test_df)
+    pred_outcome = pickled_model.predict(scaled_test_new)
     # print("cp7")
 
     plantMessage["plantMood"] = pred_outcome[0]
@@ -102,7 +102,7 @@ def main():
 
     global pickled_model
 
-    pickled_model = pickle.load(open('model.pkl', 'rb')) #import the pickled model
+    # pickled_model = pickle.load(open('model.pkl', 'rb')) #import the pickled model
 
     # NOTE: Client is implicitly connected due to the handler being set on it
     client = create_client()

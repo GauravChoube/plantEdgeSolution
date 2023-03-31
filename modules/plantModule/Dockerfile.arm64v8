@@ -4,7 +4,6 @@ WORKDIR /app
 
 COPY requirements.txt ./
 
-
 RUN apt-get update -y && \
     apt-get install -y python3-rpi.gpio && \
     apt-get update && apt-get install -y gcc 
