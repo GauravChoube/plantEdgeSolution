@@ -1,5 +1,14 @@
+<<<<<<< HEAD
 azure-iot-device~=2.7.0
 scipy ~= 1.7.3
 numpy ~= 1.21.6
 pygame ~= 2.3.0
 wavfile ~= 4.6.0
+=======
+azure-iot-device ~= 2.7.0
+asyncio ~= 3.4.3
+numpy ~= 1.24.2
+pygame ~= 2.3.0
+scipy ~= 1.10.1
+wavfile ~= 4.6.0
+>>>>>>> 12042d4d6ab2abc49456e956b0e374bda543f7bb
