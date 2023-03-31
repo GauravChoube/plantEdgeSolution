@@ -114,7 +114,14 @@
             "restartPolicy": "always",
             "settings": {
               "image": "${MODULES.musicModule}",
-              "createOptions": {}
+              "createOptions": {
+                "HostConfig": {
+                  "Binds": [
+                    "/iiotedge:/var/media/"
+                  ]
+                }
+              
+              }
             }
           }
         }

@@ -102,7 +102,7 @@ def main():
 
     global pickled_model
 
-    pickled_model = pickle.load(open('model.pkl', 'rb')) #import the pickled model
+    # pickled_model = pickle.load(open('model.pkl', 'rb')) #import the pickled model
 
     # NOTE: Client is implicitly connected due to the handler being set on it
     client = create_client()
