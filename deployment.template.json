@@ -97,16 +97,7 @@
               "createOptions": {}
             }
           },
-          "bleModule": {
-            "version": "1.0",
-            "type": "docker",
-            "status": "running",
-            "restartPolicy": "always",
-            "settings": {
-              "image": "${MODULES.bleModule}",
-              "createOptions": {}
-            }
-          },
+          
           "musicModule": {
             "version": "1.0",
             "type": "docker",
@@ -115,10 +106,13 @@
             "settings": {
               "image": "${MODULES.musicModule}",
               "createOptions": {
+                "NetworkingConfig": {
+                  "EndpointsConfig": {
+                    "host": {}
+                  }
+                },
                 "HostConfig": {
-                  "Binds": [
-                    "/iiotedge:/var/media/"
-                  ]
+                  "NetworkMode": "host"
                 }
               
               }

@@ -203,3 +203,24 @@
     }
   }
 }
+
+"bleModule": {
+  "version": "1.0",
+  "type": "docker",
+  "status": "running",
+  "restartPolicy": "always",
+  "settings": {
+    "image": "${MODULES.bleModule}",
+    "createOptions": {
+      "HostConfig": {
+        "NetworkMode": "host",
+        "Privileged": true,
+        "Devices": [],
+        "Binds": [
+  
+        ]
+      }
+
+    }
+  }
+},

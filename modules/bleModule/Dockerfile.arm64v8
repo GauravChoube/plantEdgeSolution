@@ -1,21 +1,21 @@
-FROM arm64v8/python:3.7-slim-buster
+FROM arm64v8/python:3.9.16-bullseye
 
 WORKDIR /app
 
 COPY requirements.txt ./
+
 RUN apt-get update -y && \
     apt-get install -y python3-rpi.gpio && \
     apt-get update && apt-get install -y gcc && \
-    apt-get install -y bluetooth bluez blueman && \
-    apt-get update -y && \
-    # apt-get install -y libbluetooth-dev && \
-    # apt-get install -y python3 python3-pip python3-dev python3-numpy python3-distutils && \
-    # pip install pybluez
-    # apt-get install -y python-bluetooth
-
+    apt-get install -y bluetooth bluez
+   
 RUN pip install -r requirements.txt
-
+RUN pip install --upgrade pip setuptools==52.0.0
+RUN python3 -m pip install pybluez
 
 COPY . .
 
-CMD [ "python3", "-u", "./main.py" ]
+# CMD [ "python3", "-u", "./main.py" ]
+# RUN chmod o+rw /var/run/sdp
+ENTRYPOINT sh entrypoint.sh
+# CMD [ "/bin/bash"]
