@@ -36,11 +36,11 @@ def aiInferencing(data):
     #TODO Add prediction code here
     
     # print("cp2")
-    pickled_model = pickle.load(open('mlp_temp_alpha.pkl', 'rb')) #convert the list to a DataFrame
+    pickled_model = pickle.load(open('/app/data/mlp_temp_alpha.pkl', 'rb')) #convert the list to a DataFrame
     # print("cp3")
     raw_df = pd.DataFrame(data = plantDataList).T
     # print("cp4")
-    standard_pkl_fitter = pickle.load(open('scaled_X_train.pkl', 'rb')) # scale the test data before giving it as an input to the model
+    standard_pkl_fitter = pickle.load(open('/app/data/scaled_X_train.pkl', 'rb')) # scale the test data before giving it as an input to the model
     # print("cp5")
     scaled_test_new = pd.DataFrame(standard_pkl_fitter.transform(raw_df))
     # print("cp6")

@@ -82,7 +82,10 @@
               "createOptions": {
                 "HostConfig": {
                   "Privileged": true,
-                  "Devices": []
+                  "Devices": [],
+                  "Binds": [
+                    "/iiotedge/data:/app/data"
+                  ]
                 }
               }
             }
