@@ -37,7 +37,8 @@ plantMessage={}
 plantMessageJson=None
 
 #
-MAX_COUNT=20
+MAX_COUNT_PLANT=60
+MAX_COUNT_LDR=20
 GAIN = 1
 
 def getPlantData():
@@ -55,23 +56,23 @@ def getPlantData():
         #plant value capturing
         beforeTime=time()*1000
 
-        for i in range (0, MAX_COUNT):
+        for i in range (0, MAX_COUNT_PLANT):
             plant_val += ads.read_adc(1, gain=GAIN)
 
-        plant_val = plant_val/MAX_COUNT
+        plant_val = plant_val/MAX_COUNT_PLANT
 
         afterTime=time()*1000
-        print("Plant Value :{} in time :{} ms of avg of {}".format(plant_val,afterTime-beforeTime,MAX_COUNT))
+        print("Plant Value :{} in time :{} ms of avg of {}".format(plant_val,afterTime-beforeTime,MAX_COUNT_PLANT))
         sleep(0.1)
 
         #ldr value capture
         beforeTime=time()*1000
-        for i in range (0, MAX_COUNT):
+        for i in range (0, MAX_COUNT_LDR):
             ldr_val += ads.read_adc(3, gain=GAIN)
 
-        ldr_val = ldr_val/MAX_COUNT
+        ldr_val = ldr_val/MAX_COUNT_LDR
         afterTime=time()*1000
-        print("Plant Value :{} in time :{} ms of avg of {}".format(ldr_val,afterTime-beforeTime,MAX_COUNT))
+        print("Plant Value :{} in time :{} ms of avg of {}".format(ldr_val,afterTime-beforeTime,MAX_COUNT_LDR))
         
         #form the json payload
         #{"plantSignal": 1129,"temperature": 20.0,"humidity": 60,"luminosity": 778,"plantMood": Normal}
