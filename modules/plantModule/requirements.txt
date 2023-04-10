@@ -5,3 +5,4 @@ adafruit-circuitpython-dht~=3.7.8
 adafruit-circuitpython-ads1x15~=2.2.21
 RPi.GPIO~=0.7.0
 gpio~=1.0.0
+adafruit_ads1x15~=1.0.2
